@@ -1,0 +1,38 @@
+[project]
+name = "cs-agent-system"
+version = "0.1.0"
+description = "电商/私域全自动智能客服 · 多智能体系统框架"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.5",
+    "langchain-core>=0.3",
+    "langchain>=0.3",
+    "langgraph>=0.2",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "mcp>=1.10",
+]
+
+[project.optional-dependencies]
+openai = ["langchain-openai>=0.2"]
+redis = ["redis>=5.0"]
+mcp = ["mcp>=1.10", "langchain-mcp-adapters>=0.3"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+cs-agent-demo = "cs_agent_system.demo:main"
+cs-agent-mcp = "cs_agent_system.mcp.server:main"
+cs-agent-seed = "cs_agent_system.seed:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
